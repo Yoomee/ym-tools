@@ -34,7 +34,7 @@ class ClientControllerGenerator < Rails::Generator::NamedBase
 
       # View template for each action.
       actions.each do |action|
-        path = File.join('app/views', class_path, file_name, "#{action}.html.haml")
+        path = File.join('client/app/views', class_path, file_name, "#{action}.html.haml")
         m.template 'view.html.haml', path,
           :assigns => { :action => action, :path => path }
       end
