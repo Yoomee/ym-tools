@@ -1,53 +1,79 @@
+# Yoomee gem.
+
 require 'rubygems'
-require 'rake'
+require 'rake/gempackagetask'
 
-begin
-  require 'jeweler'
-  Jeweler::Tasks.new do |gem|
-    gem.name = "yoomee"
-    gem.summary = %Q{The Yoomee gem.}
-    gem.description = %Q{Does lots of yoomee-specific stuff}
-    gem.email = "matt@yoomee.com"
-    gem.homepage = "http://yoomee.com"
-    gem.authors = ["Matt Atkins"]
-    # gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
-    # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
-  end
-  Jeweler::GemcutterTasks.new
-rescue LoadError
-  puts "Jeweler (or a dependency) not available. Install it with: gem install jeweler"
+require 'find'
+
+spec = Gem::Specification.new do |spec|
+  files = []
+  Find.find('generators') { |path|
+    files << path if not File.stat(path).directory? }
+    
+  spec.platform = Gem::Platform::RUBY
+  spec.name = 'yoomee'
+  spec.homepage = 'http://yoomee.com'
+  spec.version = '0.0.1'
+  spec.author = 'Matt Atkins'
+  spec.email = 'matt@yoomee.com'
+  spec.summary = 'The Yoomee gem.'
+  spec.description = 'Does lots of yoomee-specific stuff'
+  spec.files = files
+  spec.require_path = '.'
+  spec.test_files = Dir.glob('tests/*.rb')
+  spec.has_rdoc = false
+  spec.executables = nil
 end
 
-require 'rake/testtask'
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+Rake::GemPackageTask.new(spec) do |pkg|
+  pkg.need_tar = true
 end
 
-begin
-  require 'rcov/rcovtask'
-  Rcov::RcovTask.new do |test|
-    test.libs << 'test'
-    test.pattern = 'test/**/test_*.rb'
-    test.verbose = true
-  end
-rescue LoadError
-  task :rcov do
-    abort "RCov is not available. In order to run rcov, you must: sudo gem install spicycode-rcov"
-  end
+task :default => "pkg/#{spec.name}-#{spec.version}.gem" do
+  puts 'Generated latest version.'
 end
 
-task :test => :check_dependencies
+desc 'Remove directories "pkg" and "doc"'
+task :clean do
+  puts 'Remove directories "pkg" and "doc".'
+  `rm -rf pkg doc`
+end
 
-task :default => :test
+desc 'Create rdoc documentation from the code'
+task :doc do
+  `rm -rf doc`
 
-require 'rake/rdoctask'
-Rake::RDocTask.new do |rdoc|
-  version = File.exist?('VERSION') ? File.read('VERSION') : ""
+  puts 'Create rdoc documentation from the code'
+  puts `(rdoc --exclude pkg --exclude tmp \
+          --all  --title "Yoomee" README.rdoc lib) 1>&2`
+end
 
-  rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "yoomee #{version}"
-  rdoc.rdoc_files.include('README*')
-  rdoc.rdoc_files.include('lib/**/*.rb')
+desc 'Update the yoomee.gemspec file with new snapshot of files to bundle'
+task :gemspecs do
+  puts 'Update the yoomee.gemspec file with new snapshot of files to bundle.'
+
+  # !!Warning: We can't use spec.to_ruby as this generates executable code
+  # which would break Github gem generation...
+
+  template = <<EOF
+# Yoomee gem
+
+Gem::Specification.new do |spec|
+  spec.platform = #{spec.platform.inspect}
+  spec.name = #{spec.name.inspect}
+  spec.homepage = #{spec.homepage.inspect}
+  spec.version = "#{spec.version}"
+  spec.author = #{spec.author.inspect}
+  spec.email = #{spec.email.inspect}
+  spec.summary = #{spec.summary.inspect}
+  spec.files = #{spec.files.inspect}
+  spec.require_path = #{spec.require_path.inspect}
+  spec.has_rdoc = #{spec.has_rdoc}
+  spec.executables = #{spec.executables.inspect}
+  spec.extra_rdoc_files = #{spec.extra_rdoc_files.inspect}
+  spec.rdoc_options = #{spec.rdoc_options.inspect}
+end
+EOF
+
+  File.open('yoomee.gemspec', 'w').write(template)
 end
