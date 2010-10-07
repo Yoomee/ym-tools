@@ -7,9 +7,10 @@ require 'find'
 
 spec = Gem::Specification.new do |spec|
   files = []
-  Find.find('generators') { |path| files << path if not File.stat(path).directory? }
   Find.find('bin') { |path| files << path if not File.stat(path).directory? }
-  
+  Find.find('generators') { |path| files << path if not File.stat(path).directory? }
+  Find.find('lib') { |path| files << path if not File.stat(path).directory? }
+
   spec.platform = Gem::Platform::RUBY
   spec.name = 'yoomee'
   spec.homepage = 'http://yoomee.com'
