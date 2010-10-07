@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.author = "Matt Atkins"
   spec.email = "matt@yoomee.com"
   spec.summary = "The Yoomee gem."
-  spec.files = ["bin/ym", "generators/client_migration/client_migration_generator.rb", "generators/client_controller/templates/view.html.haml", "generators/client_controller/templates/helper_test.rb", "generators/client_controller/templates/helper.rb", "generators/client_controller/templates/functional_test.rb", "generators/client_controller/templates/controller.rb", "generators/client_controller/client_controller_generator.rb", "lib/yoomee.rb", "lib/yoomee/commands/help.rb", "lib/yoomee/commands/get.rb", "lib/yoomee/commands/base.rb", "lib/yoomee/command.rb", "lib/yoomee/.DS_Store"]
+  spec.files = ["bin/ym", "generators/client_migration/client_migration_generator.rb", "generators/client_controller/templates/view.html.haml", "generators/client_controller/templates/helper_test.rb", "generators/client_controller/templates/helper.rb", "generators/client_controller/templates/functional_test.rb", "generators/client_controller/templates/controller.rb", "generators/client_controller/client_controller_generator.rb", "lib/yoomee.rb", "lib/yoomee/commands/help.rb", "lib/yoomee/commands/get.rb", "lib/yoomee/commands/base.rb", "lib/yoomee/command.rb"]
   spec.require_path = "."
   spec.has_rdoc = true
   spec.executables = ["ym"]
