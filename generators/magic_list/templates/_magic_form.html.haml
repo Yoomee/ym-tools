@@ -1,0 +1,15 @@
+-content_for :head do
+  :javascript
+    var Magic<%=class_name%>Form = {
+      loading: function() {
+        $('#magic_<%=singular_name%>_submit').hide(0, function() {
+          $('#magic_<%=singular_name%>_loader').show();
+        });
+      }
+    };
+-semantic_remote_form_for(<%=singular_name%>, :loading => "Magic<%=class_name%>Form.loading()", :html => {:class => "magic_<%=singular_name%>_form"}) do |form|
+  =form.inputs
+  -form.buttons do
+    =form.commit_button "Submit", :button_html => {:id => "magic_<%=singular_name%>_submit"} 
+  #magic_<%=singular_name%>_loader{:style => "display:none"}
+    =image_tag("ajax_loader.gif")

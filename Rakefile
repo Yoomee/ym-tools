@@ -6,10 +6,11 @@ require 'rake/gempackagetask'
 require 'find'
 
 spec = Gem::Specification.new do |spec|
-  files = []
+  files = ["init.rb"]
   Find.find('bin') { |path| files << path if not File.stat(path).directory? }
   Find.find('generators') { |path| files << path if not File.stat(path).directory? }
   Find.find('lib') { |path| files << path if not File.stat(path).directory? }
+  Find.find('rails_generators') { |path| files << path if not File.stat(path).directory? }
 
   spec.platform = Gem::Platform::RUBY
   spec.name = 'yoomee'
