@@ -1,7 +1,10 @@
 require 'fileutils'
 
 module Yoomee::Command
+  
+  GIT_REMOTE_URL = "git://git.yoomee.com:4321/"
   class Base
+    include Yoomee::Helpers
 
     attr_accessor :args
     def initialize(args)
@@ -25,5 +28,10 @@ module Yoomee::Command
     def shell(cmd)
       FileUtils.cd(Dir.pwd) {|d| return `#{cmd}`}
     end
+    
+    def git(action, git_path, relative_path = ".")
+      Git.clone("#{GIT_REMOTE_URL}#{git_path}.git", relative_path)
+    end
+    
   end
 end

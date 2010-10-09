@@ -7,10 +7,10 @@ require 'find'
 
 spec = Gem::Specification.new do |spec|
   files = []
-  Find.find('bin') { |path| files << path if not File.stat(path).directory? }
-  Find.find('generators') { |path| files << path if not File.stat(path).directory? }
-  Find.find('lib') { |path| files << path if not File.stat(path).directory? }
-
+  %w{bin generators lib}.each do |dir|
+    Find.find(dir) { |path| files << path if !(!File.stat(path).directory? || path =~ /^.*DS_STORE$/)}
+  end
+  
   spec.platform = Gem::Platform::RUBY
   spec.name = 'yoomee'
   spec.homepage = 'http://yoomee.com'
@@ -67,12 +67,14 @@ Gem::Specification.new do |spec|
   spec.author = #{spec.author.inspect}
   spec.email = #{spec.email.inspect}
   spec.summary = #{spec.summary.inspect}
+  spec.description = #{spec.description.inspect}
   spec.files = #{spec.files.inspect}
   spec.require_path = #{spec.require_path.inspect}
   spec.has_rdoc = #{spec.has_rdoc}
   spec.executables = #{spec.executables.inspect}
   spec.extra_rdoc_files = #{spec.extra_rdoc_files.inspect}
   spec.rdoc_options = #{spec.rdoc_options.inspect}
+  spec.add_dependency("git")
 end
 EOF
 
