@@ -11,7 +11,7 @@ module Yoomee::Command
       @args = args
     end
 
-    def confirm(message="Are you sure you wish to continue? (y/n)?")
+    def confirm(message="Are you sure you wish to continue? (y/n)?", default=nil)
       display("#{message} ", false)
       ask.downcase == 'y'
     end

@@ -9,7 +9,8 @@ module Yoomee::Command
           display("success.")
           externals_file = File.exists?(File.join(Dir.pwd, clone_path, ".externals"))
           if externals_file && confirm("Check out externals? (y/n)")
-            shell("cd #{clone_path}; ext update") 
+            out = IO.popen("cd #{clone_path}; ext update")
+            puts out.gets while out.gets
           end
         else
           display("FAILED, see error message above.")
