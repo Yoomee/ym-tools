@@ -6,9 +6,9 @@ require 'rake/gempackagetask'
 require 'find'
 
 spec = Gem::Specification.new do |spec|
-  files = ["init.rb"]
-  %w{bin generators lib rails_generators}.each do |dir|
-    Find.find(dir) { |path| files << path if !(!File.stat(path).directory? || path =~ /^.*DS_STORE$/)}
+  files = []
+  %w{bin generators lib}.each do |dir|
+    Find.find(dir) { |path| files << path if !(File.stat(path).directory? || path =~ /^.*DS_STORE$/)}
   end
   spec.platform = Gem::Platform::RUBY
   spec.name = 'yoomee'
@@ -74,6 +74,7 @@ Gem::Specification.new do |spec|
   spec.extra_rdoc_files = #{spec.extra_rdoc_files.inspect}
   spec.rdoc_options = #{spec.rdoc_options.inspect}
   spec.add_dependency("git")
+  spec.rubyforge_project = "nowarning"
 end
 EOF
 
