@@ -1,11 +1,14 @@
+require 'yoomee/helpers'
+require 'yoomee/commands/base'
 Dir["#{File.dirname(__FILE__)}/commands/*"].each { |c| require c }
+
 
 module Yoomee
   module Command
     class InvalidCommand < RuntimeError; end
     class CommandFailed  < RuntimeError; end
 
-    # extend Heroku::Helpers
+    extend Yoomee::Helpers
 
     class << self
 

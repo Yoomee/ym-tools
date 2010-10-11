@@ -8,10 +8,12 @@ Gem::Specification.new do |spec|
   spec.author = "Matt Atkins"
   spec.email = "matt@yoomee.com"
   spec.summary = "The Yoomee gem."
-  spec.files = ["init.rb", "bin/ym", "generators/magic_list/templates/magic_create_action.rb", "generators/magic_list/templates/controller.rb", "generators/magic_list/templates/_magic_list_item.html.haml", "generators/magic_list/templates/_magic_list.html.haml", "generators/magic_list/templates/_magic_form.html.haml", "generators/magic_list/templates/.DS_Store", "generators/magic_list/magic_list_generator.rb", "generators/magic_list/.DS_Store", "generators/client_migration/templates/migration.rb", "generators/client_migration/client_migration_generator.rb", "generators/client_migration/.DS_Store", "generators/client_controller/templates/view.html.haml", "generators/client_controller/templates/helper_test.rb", "generators/client_controller/templates/helper.rb", "generators/client_controller/templates/functional_test.rb", "generators/client_controller/templates/controller.rb", "generators/client_controller/client_controller_generator.rb", "generators/client_controller/.DS_Store", "generators/.DS_Store", "lib/yoomee.rb", "lib/yoomee/commands/help.rb", "lib/yoomee/commands/get.rb", "lib/yoomee/commands/gem.rb", "lib/yoomee/commands/base.rb", "lib/yoomee/command.rb", "lib/.DS_Store", "rails_generators/yoomee/lib/insert_commands.rb", "rails_generators/yoomee/lib/.DS_Store"]
+  spec.description = "Does lots of yoomee-specific stuff"
+  spec.files = ["init.rb", "bin", "generators", "generators/magic_list", "generators/magic_list/templates", "generators/client_migration", "generators/client_migration/templates", "generators/client_controller", "generators/client_controller/templates", "lib", "lib/yoomee", "lib/yoomee/commands", "rails_generators", "rails_generators/yoomee", "rails_generators/yoomee/lib", "bin/ym"]
   spec.require_path = "."
   spec.has_rdoc = true
   spec.executables = ["ym"]
   spec.extra_rdoc_files = []
   spec.rdoc_options = []
+  spec.add_dependency("git")
 end
