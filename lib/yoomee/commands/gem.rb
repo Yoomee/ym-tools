@@ -10,7 +10,7 @@ module Yoomee::Command
         display("- installing gem.......",false) 
         display("complete.") if res = %x{cd #{path}; gem install yoomee*.gem}
       else
-        display("Root privileges are required to install gems, please run again with sudo.") 
+        display("FAILED: Root privileges are required to install gems, please run again with sudo.") 
       end 
     end
     def update
@@ -21,7 +21,7 @@ module Yoomee::Command
         reinstall(File.join(Dir.pwd,"yoomee_gem_temp"))
         %x{rm -rf ./yoomee_gem_temp}
       else
-        display("Root privileges are required to install gems, please run again with sudo.") 
+        display("FAILED: Root privileges are required to install gems, please run again with sudo.") 
       end
     end
   end
