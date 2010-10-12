@@ -1,7 +1,7 @@
 module Yoomee::Command
   class Gem < Base
-    def reinstall(path="~/Rails/yoomee")
-      if ENV['user'] == 'root'
+    def reinstall(path="~/Rails/Gems/yoomee")
+      if sudo?
         display("Installing gem from #{path}") if path == "~/Rails/yoomee"
         display("- generating gemspec...",false) 
         display("complete.") if %x{cd #{path}; rake gemspecs}
@@ -14,7 +14,7 @@ module Yoomee::Command
       end 
     end
     def update
-      if ENV['user'] == 'root'
+      if sudo?
         display("Updating gem from remote repository")
         display("- getting latest code..",false) 
         display("complete.") if git("clone", "gems/yoomee", "./yoomee_gem_temp")

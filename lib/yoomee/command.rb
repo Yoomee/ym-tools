@@ -12,9 +12,9 @@ module Yoomee
 
     class << self
 
-      def run(command, args, retries=0)
+      def run(command, args, user)
         begin 
-          run_internal(command, args.dup)
+          run_internal(command, args.dup, user)
         rescue InvalidCommand
           puts "Unknown command. Run 'ym help' for usage information."
         end
@@ -45,9 +45,9 @@ module Yoomee
         #        end
       end
 
-      def run_internal(command, args)
+      def run_internal(command, args, user)
         klass, method = parse(command)
-        runner = klass.new(args)
+        runner = klass.new(args,user)
         raise InvalidCommand unless runner.respond_to?(method)
         runner.send(method)
       end

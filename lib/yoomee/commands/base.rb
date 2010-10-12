@@ -5,8 +5,9 @@ module Yoomee::Command
     include Yoomee::Helpers
 
     attr_accessor :args
-    def initialize(args)
+    def initialize(args, user)
       @args = args
+      @user = user
     end
 
     def confirm(message="Are you sure you wish to continue? (y/n)?", default=nil)
@@ -29,6 +30,10 @@ module Yoomee::Command
     
     def git(action, git_path, relative_path = ".")
       Git.clone("git://git.yoomee.com:4321/#{git_path}.git", relative_path)
+    end
+    
+    def sudo?
+      @user == "root"
     end
     
   end
