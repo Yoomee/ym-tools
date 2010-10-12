@@ -14,14 +14,19 @@ module Yoomee::Command
       end 
     end
     def update
-      if sudo?
-        display("Updating gem from remote repository")
-        display("- getting latest code..",false) 
-        display("complete.") if git("clone", "gems/yoomee", "./yoomee_gem_temp")
-        reinstall(File.join(Dir.pwd,"yoomee_gem_temp"))
-        %x{rm -rf ./yoomee_gem_temp}
+      if args[0] == "local"
+        args.shift
+        reinstall
       else
-        display("FAILED: Root privileges are required to install gems, please run again with sudo.") 
+        if sudo?
+          display("Updating gem from remote repository")
+          display("- getting latest code..",false) 
+          display("complete.") if git("clone", "gems/yoomee", "./yoomee_gem_temp")
+          reinstall(File.join(Dir.pwd,"yoomee_gem_temp"))
+          %x{rm -rf ./yoomee_gem_temp}
+        else
+          display("FAILED: Root privileges are required to install gems, please run again with sudo.") 
+        end
       end
     end
   end

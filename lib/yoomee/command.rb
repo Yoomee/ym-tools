@@ -46,7 +46,8 @@ module Yoomee
       end
 
       def run_internal(command, args, user)
-        klass, method = parse(command)
+        klass, method, extra_args = parse(command)
+        args << extra_args if !extra_args.nil?
         runner = klass.new(args,user)
         raise InvalidCommand unless runner.respond_to?(method)
         runner.send(method)
@@ -66,6 +67,12 @@ module Yoomee
           when 2
             begin
               return Yoomee::Command.const_get(parts[0].capitalize), parts[1]
+            rescue NameError
+              raise InvalidCommand
+            end
+          when 3
+            begin
+              return Yoomee::Command.const_get(parts[0].capitalize), parts[1], parts[2]
             rescue NameError
               raise InvalidCommand
             end
