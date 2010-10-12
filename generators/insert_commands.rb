@@ -1,24 +1,28 @@
 Rails::Generator::Commands::Create.class_eval do
-  def do_stuff
+  def insert(relative_destination, regexp, *args, &block)
+    gsub_file(relative_destination, regexp, *args, &block)
     logger.insert "Stuff"
   end
 end
 
 Rails::Generator::Commands::Destroy.class_eval do
-  def do_stuff
-    puts "Stuff"
+  def insert(relative_destination, regexp, *args, &block)
+    gsub_file(relative_destination, regexp, *args, &block)
+    logger.insert "Stuff"
   end
 end
 
 Rails::Generator::Commands::Update.class_eval do
-  def do_stuff
-    puts "Stuff"
+  def insert(relative_destination, regexp, *args, &block)
+    gsub_file(relative_destination, regexp, *args, &block)
+    logger.insert "Stuff"
   end
 end
 
 Rails::Generator::Commands::List.class_eval do
-  def do_stuff
-    puts "Stuff"
+  def insert(relative_destination, regexp, *args, &block)
+    gsub_file(relative_destination, regexp, *args, &block)
+    logger.insert "Stuff"
   end
 end
 

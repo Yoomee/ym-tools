@@ -7,10 +7,9 @@ class MagicListGenerator < Rails::Generator::NamedBase
       m.class_collisions "#{class_name}Controller", "#{class_name}ControllerTest", "#{class_name}Helper", "#{class_name}HelperTest"
       
       
-      # line = "^(.*<%=class_name%>sController.*$)"
-      # gsub_file "client/app/controllers/#{plural_name}_controller.rb", /(#{Regexp.escape(line)})/m do |match|
-      #   "#{match}\n  #{render :file => 'templates/magic_create_action.rb'}"
-      # end
+      m.insert "client/app/controllers/#{plural_name}_controller.rb", /(#{Regexp.escape("^(.*<%=class_name%>sController.*$)")})/m do |match|
+        "#{match}\n  #{render :file => 'templates/magic_create_action.rb'}"
+      end
             
       m.directory File.join('client/app/controllers')
       m.template 'controller.rb', File.join('client/app/controllers',"#{file_name}_controller.rb")
