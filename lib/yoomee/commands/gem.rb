@@ -13,7 +13,7 @@ module Yoomee::Command
       display("Updating gem from remote repository")
       display("- getting latest code..",false) 
       display("complete.") if git("clone", "gems/yoomee", "./yoomee_gem_temp")
-      reinstall(File.join(Dir.pwd,"yoomee_gem_temp")
+      reinstall(File.join(Dir.pwd,"yoomee_gem_temp"))
       %x{rm -rf ./yoomee_gem_temp}
     end
   end
