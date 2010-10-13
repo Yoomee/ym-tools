@@ -44,7 +44,6 @@ module Yoomee::Command
 
     def index
       display usage
-      # puts "Can't help you!"
     end
 
     def usage
