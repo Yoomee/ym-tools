@@ -29,11 +29,15 @@ module Yoomee::Command
     end
     
     def git(action, git_path, relative_path = ".")
-      Git.clone("git://git.yoomee.com:4321/#{git_path}.git", relative_path)
+      Git.clone(yoomee_git_path(git_path), git_path, relative_path)
     end
     
     def sudo?
       @user == "root"
+    end
+    
+    def yoomee_git_path(path)
+      "git://git.yoomee.com:4321/#{path}.git"
     end
     
   end
