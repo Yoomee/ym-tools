@@ -12,7 +12,9 @@ module Yoomee::Command
 
     def in_project_root?
       # !Dir.pwd.match(/Rails\/[^\/]+$/)
-      File.exists?(File.join(Dir.pwd, "app")) && File.exists?(File.join(Dir.pwd, "vendor"))
+      %w{Rakefile app client vendor}.all? do |directory|
+        File.exists?(File.join(Dir.pwd, directory))
+      end
     end
 
     def confirm(message="Are you sure you wish to continue? (y/n)?", default=nil)
