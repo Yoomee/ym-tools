@@ -34,7 +34,7 @@ module Yoomee::Command
     end
     
     def git(action, git_path, relative_path = ".")
-      Git.clone(yoomee_git_path(git_path), git_path, relative_path)
+      Git.clone(yoomee_git_path(git_path), relative_path)
     end
     
     def sudo?

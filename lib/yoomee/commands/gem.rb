@@ -2,7 +2,7 @@ module Yoomee::Command
   class Gem < Base
     def reinstall(path="~/Rails/Gems/yoomee")
       if sudo?
-        display("Installing gem from #{path}") if path == "~/Rails/yoomee"
+        display("Installing gem from #{path}") if path == "~/Rails/Gems/yoomee"
         display("- generating gemspec...",false) 
         display("complete.") if %x{cd #{path}; rake gemspecs}
         display("- building gem.........",false) 
