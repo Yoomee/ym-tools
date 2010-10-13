@@ -33,8 +33,10 @@ module Yoomee::Command
         group.command 'help','show this usage'
         group.space
         group.command 'get','update an app'
-        group.command 'update','get an app, e.g. ym get aston'
+        group.command 'update','get an app, e.g. ym get worldeka'
         group.space
+        group.command 'plugin:install','install a Tramlines plugin'
+        group.command 'plugin:uninstall','uninstall a Tramlines plugin'
       end
       group 'Gem Commands' do |group|
         group.command 'gem:update','install latest version of gem, requires sudo'
