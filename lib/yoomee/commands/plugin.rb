@@ -4,7 +4,7 @@ module Yoomee::Command
     def install
       plugin_name = args[0]
       plugin_name = "tramlines_#{plugin_name}" unless plugin_name.match(/^tramlines_/)
-      if !Dir.pwd.match(/Rails\/[^\/]+$/)
+      if !in_project_root?
         display("FAILED, make sure you are in the root directory of a project.")
       elsif confirm("Install #{plugin_name}? (y/n)")
         if File.exists?(File.join(Dir.pwd, "vendor/plugins/#{plugin_name}"))
@@ -23,7 +23,7 @@ module Yoomee::Command
     def uninstall
       plugin_name = args[0]
       plugin_name = "tramlines_#{plugin_name}" unless plugin_name.match(/^tramlines_/)
-      if !Dir.pwd.match(/Rails\/[^\/]+$/)
+      if !in_project_root?
         display("FAILED, make sure you are in the root directory of a project.")
       elsif confirm("Uninstall #{plugin_name}? (y/n)")
         if !File.exists?(File.join(Dir.pwd, "vendor/plugins/#{plugin_name}"))

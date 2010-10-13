@@ -10,6 +10,11 @@ module Yoomee::Command
       @user = user
     end
 
+    def in_project_root?
+      # !Dir.pwd.match(/Rails\/[^\/]+$/)
+      File.exists?(File.join(Dir.pwd, "app")) && File.exists?(File.join(Dir.pwd, "vendor"))
+    end
+
     def confirm(message="Are you sure you wish to continue? (y/n)?", default=nil)
       display("#{message} ", false)
       ask.downcase == 'y'
