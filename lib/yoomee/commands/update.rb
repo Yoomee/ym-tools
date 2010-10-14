@@ -8,7 +8,7 @@ module Yoomee::Command
         puts "GIT: #{out}"
         migration = true if out =~/migrate\//
       end
-      shell("rake db:migrate") if migration && confirm("Migration found, run db:migrate? (y/n)")
+      %x{rake db:migrate} if migration && confirm("Migration found, run db:migrate? (y/n)")
     end
   end
 end
