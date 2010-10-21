@@ -5,7 +5,7 @@ class MagicListGenerator < Rails::Generator::NamedBase
     record do |m|
       m.class_collisions "#{class_name}Controller", "#{class_name}ControllerTest", "#{class_name}Helper", "#{class_name}HelperTest"
       m.directory File.join('client/app/controllers')
-      m.insert "client/app/controllers/#{plural_name}_controller.rb", /^.*#{class_name.pluralize}Controller.*$/ do |match|"#{match}\n#{magic_create_action}" end
+      m.insert "client/app/controllers/#{plural_name}_controller.rb", /^.*#{class_name.pluralize}Controller.*$/ do |match|"#{match}\n#{magic_actions}" end
       m.directory File.join('client/app/views/', plural_name)
       m.template('_magic_list.html.haml', "client/app/views/#{plural_name}/_magic_list.html.haml")
       m.template('_magic_list_item.html.haml', "client/app/views/#{plural_name}/_magic_list_item.html.haml")
@@ -14,7 +14,7 @@ class MagicListGenerator < Rails::Generator::NamedBase
     end
   end
   
-  def magic_create_action
+  def magic_actions
     <<-EOF
   def magic_create
     if request.xhr?
@@ -28,6 +28,15 @@ class MagicListGenerator < Rails::Generator::NamedBase
       end
     end
   end
+  
+  def destroy
+    render :update do |page|
+      if @#{singular_name}.destroy
+        page << "$('#tag_context_\#{@#{singular_name}.id}').fadeOut('fast', function() {$(this).remove();});"
+      end
+    end
+  end
     EOF
   end
+  
 end
