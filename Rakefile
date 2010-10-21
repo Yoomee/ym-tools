@@ -22,7 +22,7 @@ spec = Gem::Specification.new do |spec|
   spec.require_path = '.'
   spec.test_files = Dir.glob('tests/*.rb')
   spec.has_rdoc = false
-  spec.executables = "ym"
+  spec.executables = ["ym", "yoomee"]
 end
 
 Rake::GemPackageTask.new(spec) do |pkg|
