@@ -11,7 +11,7 @@ module Yoomee::Command
         starling_port = environment=="production" ? "15151" : "22122"
         if !starling_running?(starling_port)
           shell("starling -d -p #{starling_port}")
-          display("Started starling on port #{starling_pid}")
+          display("Started starling on port #{starling_port}")
         end
         shell("export RAILS_ENV=production") if environment=="production"
         shell("script/workling_client start")
@@ -36,7 +36,7 @@ module Yoomee::Command
         starling_port = environment=="production" ? "15151" : "22122"      
         if starling_running?(starling_port)
           shell("kill -9 #{starling_pid}")
-          display("Stopped starling on port #{starling_pid}")
+          display("Stopped starling on port #{starling_port}")
         end
       end
     end
