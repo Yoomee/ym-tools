@@ -44,5 +44,27 @@ module Yoomee::Command
     end
     alias_method :remove, :uninstall
     
+    
+    # def create
+    #
+    #   ssh dev1
+    #   cd /git/plugins
+    #   git init --bare tramlines_forum.git
+    # LOCALLY
+    #   script/generate plugin tramlines_forum
+    #   cd vendor/plugins/tramlines_forum/
+    #   git init
+    #   git remote add origin git://git.yoomee.com:4321/plugins/tramlines_forum.git
+    #   git add *
+    #   git commit -m "Initial commit"
+    #   git push
+    #   cd ../
+    #   rm -rf tramlines_forum/
+    #   cd ../../
+    #   ym plugin:install forum
+    #   commit project for .externals and .gitignore
+    #   add plugins/tramlines_forum to vendor/.gitignore and commit
+    # end
+    
   end
 end
