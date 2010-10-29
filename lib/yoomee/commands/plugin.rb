@@ -21,7 +21,7 @@ module Yoomee::Command
     end
     
     def list
-      puts dev1_root_shell("ls -l /git/plugins | awk '/git$/ {print $9}'")
+      puts dev1_root_shell("ls -l /git/plugins | awk '/git$/ {print $9}'").gsub(/.git/, "").gsub(/tramlines_/, "")
     end
    
     def uninstall
