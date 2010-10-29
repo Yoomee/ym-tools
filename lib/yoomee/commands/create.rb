@@ -48,7 +48,7 @@ module Yoomee::Command
             display("complete.")
             
             display("Writing settings.yml...", false)
-            settings = "site_name: #{site_name}\nsite_url: #{site_url}\nwebthumb_key:ff1e5c1f36807f9e87868f9c01c33dbb\ndevelopment:\n  site_name: #{site_name} development\n"
+            settings = "site_name: #{site_name}\nsite_url: #{site_url}\nwebthumb_key: ff1e5c1f36807f9e87868f9c01c33dbb\ndevelopment:\n  site_name: #{site_name} development\n"
             File.open("client/config/settings.yml", "w") {|file| file.write(settings)}
             display("complete.")
             

@@ -19,6 +19,10 @@ module Yoomee::Command
         end        
       end
     end
+    
+    def list
+      puts dev1_root_shell("ls -l /git/plugins | awk '/git$/ {print $9}'")
+    end
    
     def uninstall
       plugin_name = args[0]
