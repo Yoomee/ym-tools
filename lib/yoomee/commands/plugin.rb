@@ -51,6 +51,7 @@ module Yoomee::Command
     #   cd /git/plugins
     #   git init --bare tramlines_forum.git
     # LOCALLY
+    #   add Tramlines.add_plugin(:name) to client/plugins.rb
     #   script/generate plugin tramlines_forum
     #   cd vendor/plugins/tramlines_forum/
     #   git init
