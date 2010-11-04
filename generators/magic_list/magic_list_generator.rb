@@ -3,13 +3,14 @@ require File.expand_path(File.dirname(__FILE__) + "/../insert_commands.rb")
 class MagicListGenerator < Rails::Generator::NamedBase
   def manifest
     record do |m|
+      root_path = @args.first || "."
       m.class_collisions "#{class_name}Controller", "#{class_name}ControllerTest", "#{class_name}Helper", "#{class_name}HelperTest"
-      m.directory File.join('client/app/controllers')
-      m.insert "client/app/controllers/#{plural_name}_controller.rb", /^.*#{class_name.pluralize}Controller.*$/ do |match|"#{match}\n#{magic_actions}" end
-      m.directory File.join('client/app/views/', plural_name)
-      m.template('_magic_list.html.haml', "client/app/views/#{plural_name}/_magic_list.html.haml")
-      m.template('_magic_list_item.html.haml', "client/app/views/#{plural_name}/_magic_list_item.html.haml")
-      m.template('_magic_form.html.haml', "client/app/views/#{plural_name}/_magic_form.html.haml")
+      m.directory File.join("#{root_path}/app/controllers")
+      m.insert "#{root_path}/app/controllers/#{plural_name}_controller.rb", /^.*#{class_name.pluralize}Controller.*$/ do |match|"#{match}\n#{magic_actions}" end
+      m.directory File.join("#{root_path}/app/views/", plural_name)
+      m.template('_magic_list.html.haml', "#{root_path}/app/views/#{plural_name}/_magic_list.html.haml")
+      m.template('_magic_list_item.html.haml', "#{root_path}/app/views/#{plural_name}/_magic_list_item.html.haml")
+      m.template('_magic_form.html.haml', "#{root_path}/app/views/#{plural_name}/_magic_form.html.haml")
       logger.readme("Example usage: =render(\"#{plural_name}/magic_list\", :#{plural_name} => @#{plural_name}, :new_#{singular_name} => #{class_name}.new)")
     end
   end
@@ -32,7 +33,7 @@ class MagicListGenerator < Rails::Generator::NamedBase
   def destroy
     render :update do |page|
       if @#{singular_name}.destroy
-        page << "$('#tag_context_\#{@#{singular_name}.id}').fadeOut('fast', function() {$(this).remove();});"
+        page << "$('##{singular_name}_\#{@#{singular_name}.id}').fadeOut('fast', function() {$(this).remove();});"
       end
     end
   end
