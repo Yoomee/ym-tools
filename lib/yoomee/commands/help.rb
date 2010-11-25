@@ -29,18 +29,32 @@ module Yoomee::Command
     end
 
     def self.create_default_groups!
-      group 'General Commands' do |group|
-        group.command 'help','show this usage'
+      group 'Project Commands' do |group|
+        group.command 'project:get','get a project, e.g. ym project:get worldeka'
+        group.command 'project:update', 'update the project in the current directory'
+        group.command 'project:exists', 'check if a project exists, e.g. ym project:exists worldeka'
+        group.command 'project:list', 'list all projects'
         group.space
-        group.command 'get','update an app'
-        group.command 'update','get an app, e.g. ym get worldeka'
-        group.space
+        group.command 'plugin:list','list all Tramlines plugins'
         group.command 'plugin:install','install a Tramlines plugin'
         group.command 'plugin:uninstall','uninstall a Tramlines plugin'
+        group.space
+        group.command 'workling:start','start workling and starling'
+        group.command 'workling:stop','stop workling and starling'
+        group.command 'workling:restart','restart workling and starling'
+        group.space
+        group.command 'db:prepare', 'run db:create, db:migrate and db:seed'
+        group.space
+        group.command 'help','show this!'
       end
-      group 'Gem Commands' do |group|
+      group 'Gem & Bundle Commands' do |group|
         group.command 'gem:update','install latest version of gem, requires sudo'
         group.command 'gem:update:local','install gem from ~/Rails/Gems/yoomee, requires sudo'
+        group.space
+        group.command 'bundle:install','install the Yoomee TextMate bundle'
+        group.command 'bundle:update','update the Yoomee TextMate bundle'
+        group.command 'bundle:edit','open the Yoomee bundle in TextMate'
+        group.command 'bundle:reveal','open the TextMate bundles directory in Finder'
       end
     end
 

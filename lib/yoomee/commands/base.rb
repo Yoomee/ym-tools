@@ -69,8 +69,23 @@ module Yoomee::Command
       out
     end
     
+    def trash(path)
+      path = path.gsub(/ /, "\\ ")
+      shell("mv #{path} ~/.Trash/#{trash_name(path.split('/').last)}\ ")
+    end
+    
     def yoomee_git_path(path)
       "git://git.yoomee.com:4321/#{path}.git"
+    end
+    
+    def trash_name(filename)
+      split = filename.split(".")
+      if split.size > 1
+        extension, name = split.pop, split.join(".")
+        name + Time.now.strftime("\\ %H-%M-%S.") + extension
+      else
+        filename + Time.now.strftime("\\ %H-%M-%S.")
+      end
     end
     
   end
