@@ -1,6 +1,6 @@
-#magic_<%=singular_name%>_list_wrapper
-  #magic_<%=singular_name%>_form
-    =render("<%=plural_name%>/magic_form", :<%=singular_name%> => new_<%=singular_name%>)
-  #magic_<%=singular_name%>_list
+#<%=singular_name%>_list_wrapper
+  #<%=singular_name%>_form
+    =render("<%=plural_name%>/<%=plural_name%>_form", :<%=singular_name%> => new_<%=singular_name%>)
+  #<%=singular_name%>_list
     -<%=plural_name%>.each do |<%=singular_name%>|
-      =render("<%=plural_name%>/magic_list_item", :<%=singular_name%> => <%=singular_name%>)
+      =render("<%=plural_name%>/<%=plural_name%>_list_item", :<%=singular_name%> => <%=singular_name%>)
