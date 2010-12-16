@@ -38,7 +38,7 @@ module Yoomee::Command
           if shell("ext uninstall vendor/plugins/#{plugin_name}")
             if shell("rm -rf vendor/plugins/#{plugin_name}")
               display("Successfully removed #{plugin_name}.")
-              plugin_file = File.read("client/config/plugins.rb").gsub(/\n?Tramlines\.add_plugin\(\:#{plugin_name.gsub(/tramlines_/, '')}\)\n?/,'')
+              plugin_file = File.read("client/config/plugins.rb").gsub(/\n?Tramlines\.add_plugin\(\:#{plugin_name.gsub(/tramlines_/, '')}\)/,'')
               File.open("client/config/plugins.rb", "w") {|file| file.write(plugin_file)}
             else
               display("FAILED, external removed but could not delete directory vendor/plugins/#{plugin_name}")
