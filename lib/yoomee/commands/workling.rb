@@ -6,7 +6,7 @@ module Yoomee::Command
       if !in_project_root?
         display("FAILED, make sure you are in the root directory of a project.")
       elsif !sudo?
-        display("FAILED: Root privileges are required to install gems, please run again with sudo.")        
+        display("FAILED: Root privileges are required to start workling/starling, please run again with sudo.")        
       else
         starling_port = environment=="production" ? "15151" : "22122"
         if !starling_running?(starling_port)
@@ -24,7 +24,7 @@ module Yoomee::Command
       if !in_project_root?
         display("FAILED, make sure you are in the root directory of a project.")
       elsif !sudo?
-        display("FAILED: Root privileges are required to install gems, please run again with sudo.")         
+        display("FAILED: Root privileges are required to stop workling/starling, please run again with sudo.")         
       else
         if environment == "production"
           shell("export RAILS_ENV=production")
@@ -45,7 +45,7 @@ module Yoomee::Command
       if !in_project_root?
         display("FAILED, make sure you are in the root directory of a project.")
       elsif !sudo?
-        display("FAILED: Root privileges are required to install gems, please run again with sudo.")
+        display("FAILED: Root privileges are required to restart workling/starling, please run again with sudo.")
       else
         stop
         start
