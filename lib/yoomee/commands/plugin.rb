@@ -17,7 +17,7 @@ module Yoomee::Command
     end
     
     def list
-      puts dev1_root_shell("ls -l /git/plugins | awk '/git$/ {print $9}'").gsub(/.git/, "").gsub(/tramlines_/, "")
+      puts dev1_root_shell("ls -l #{dev1_git_root_path}plugins | awk '{print $9}'").gsub(/.git/, "").gsub(/tramlines_/, "")
     end
    
     def uninstall
@@ -53,7 +53,7 @@ module Yoomee::Command
         plugin_name = args[0]
         if plugin_name.nil?
           display("FAILED: please specify the new plugin name.")
-        elsif !dev1_root_shell("ls -l /git/plugins | grep #{plugin_name}.git$").empty?
+        elsif !dev1_root_shell("ls -l #{dev1_git_root_path}plugins | grep #{plugin_name}.git$").empty?
           display("FAILED: plugin with that name already exists.")
         elsif File.exists?(File.join(Dir.pwd, "vendor/plugins/#{plugin_name}"))
           display("FAILED, vendor/plugins/#{plugin_name} already exists.")
