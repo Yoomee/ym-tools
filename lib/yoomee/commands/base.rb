@@ -37,7 +37,7 @@ module Yoomee::Command
     end
     
     def create_git_on_dev1(repo_path)
-      dev1_root_shell("/usr/local/bin/git init --bare /git/#{repo_path}.git")
+      dev1_root_shell("/usr/local/bin/git init --bare #{dev1_git_root_path}#{repo_path}.git")
     end    
     
     def git(action, git_path, relative_path = ".")
@@ -46,6 +46,10 @@ module Yoomee::Command
     
     def sudo?
       @user == "root"
+    end
+    
+    def dev1_git_root_path
+      "/cvs-repository/git/"
     end
     
     def dev1_root_shell(cmd)

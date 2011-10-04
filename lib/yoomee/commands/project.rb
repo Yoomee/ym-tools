@@ -5,7 +5,7 @@ module Yoomee::Command
       project_name = args[0]
       if project_name.nil?
         display("FAILED: please specify the project name.")
-      elsif !dev1_root_shell("ls -l /git | grep #{project_name}.git$").empty?
+      elsif !dev1_root_shell("ls -l #{dev1_git_root_path} | grep #{project_name}.git$").empty?
         display("FAILED: project with that name already exists.")
       else
         clone_path = args[1] || project_name
@@ -62,7 +62,7 @@ module Yoomee::Command
 
 
     def exists
-      !dev1_root_shell("ls -l /git | grep #{args[0]}.git$").empty?
+      !dev1_root_shell("ls -l #{dev1_git_root_path} | grep #{args[0]}.git$").empty?
     end
 
     def get
@@ -86,7 +86,7 @@ module Yoomee::Command
     end
 
     def list
-      puts dev1_root_shell("ls -l /git | awk '/git$/ {print $9}'").gsub(/.git/, "")
+      puts dev1_root_shell("ls -l #{dev1_git_root_path} | awk '{print $9}'").gsub(/.git/, "")
     end
 
     def update
