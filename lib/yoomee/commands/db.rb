@@ -27,7 +27,13 @@ module Yoomee::Command
       display("=> Downloading database dump")
       system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql ./db/#{db_name}.sql")
       
-      display("=> Importing database locally")
+      display("=> Dropping local database")
+      system("rake db:drop")
+      
+      display("=> Creating local database")
+      system("rake db:create")
+      
+      display("=> Importing database")
       system("mysql -u#{db_user} #{db_name} < ./db/#{db_name}.sql")
       
       display("COMPLETE")
