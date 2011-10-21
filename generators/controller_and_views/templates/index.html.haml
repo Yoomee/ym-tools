@@ -1,0 +1,11 @@
+-title "<%=plural_name.humanize%>"
+
+-if @<%=plural_name%>.empty?
+  %p There are no <%=plural_name%> yet.
+-else
+  %ul.lst
+    -@<%=plural_name%>.each do |<%=singular_name%>|
+      %li
+        =link_to_self(<%=singular_name%>)
+
+=options_panel(:<%=singular_name%>)
