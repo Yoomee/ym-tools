@@ -1,4 +1,4 @@
-class <%=class_name%>Controller < ApplicationController
+class <%=plural_name.camelize%>Controller < ApplicationController
 
   before_filter :get_<%=singular_name%>, :only => [:destroy, :edit, :show, :update]
 
@@ -23,7 +23,7 @@ class <%=class_name%>Controller < ApplicationController
   end
   
   def index
-    @<%=singular_name%> = <%=class_name%>.all
+    @<%=plural_name%> = <%=class_name%>.all
   end  
   
   def new
