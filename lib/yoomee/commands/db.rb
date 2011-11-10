@@ -11,9 +11,10 @@ module Yoomee::Command
     end
     
     def fetch
+      parse_args!
       cli = EY::CLI.new
       display("=> Fetching app details from EngineYard")
-      app,environment = cli.send(:fetch_app_and_environment)
+      app,environment = cli.send(:fetch_app_and_environment, @app_name, @env_name)
       
       display("=> Running rake db:dump on the server")
       hosts = cli.ssh_hosts({}, environment)
@@ -38,5 +39,15 @@ module Yoomee::Command
       
       display("COMPLETE")
     end
+    
+    def parse_args!
+      if args.detect {|arg| arg.match(/^a=(.+)/)}
+        @app_name = $1
+      end
+      if args.detect {|arg| arg.match(/^e=(.+)/)}
+        @env_name = $1
+      end
+    end
+    
   end
 end
