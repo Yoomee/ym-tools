@@ -31,7 +31,7 @@ module Yoomee::Command
       
       if File.exists?("./db/#{db_name}.sql.tgz")
         display("=> Uncompressing database dump")
-        system("cd ./db && tar -xzvf #{db_name}.sql.tgz #{db_name}.sql")
+        system("cd ./db && tar -xzvf #{db_name}.sql.tgz && mv #{app.name}.sql #{db_name}.sql")
       else
         display("=> Compressed database dump not found, downloading uncompressed version")
         system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql ./db/#{db_name}.sql")
