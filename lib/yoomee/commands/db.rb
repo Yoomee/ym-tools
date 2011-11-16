@@ -12,7 +12,7 @@ module Yoomee::Command
     
     def fetch
       parse_args!
-
+      
       cli = EY::CLI.new
       display("=> Fetching app details from EngineYard")
       app,environment = cli.send(:fetch_app_and_environment, @app_name, @env_name)
@@ -50,10 +50,10 @@ module Yoomee::Command
     end
     
     def parse_args!
-      if args.detect {|arg| arg.match(/^(--app|-?a)=?'?([^\s']+)'?/)}
+      if args.detect {|arg| arg.match(/^(--app|-?a)='?([^\s']+)'?/)}
         @app_name = $2
       end
-      if args.detect {|arg| arg.match(/^(--environment|-?e)=?'?([^\s']+)'?/)}
+      if args.detect {|arg| arg.match(/^(--environment|-?e)='?([^\s']+)'?/)}
         @env_name = $2
       end
     end
