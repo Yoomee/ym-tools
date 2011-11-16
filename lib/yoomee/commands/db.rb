@@ -50,10 +50,10 @@ module Yoomee::Command
     end
     
     def parse_args!
-      if args.detect {|arg| arg.match(/^(--app|-?a)='?([^\s']+)'?/)}
+      if args.detect {|arg| arg.match(/^(--app|-?a)=?'?([^\s']+)'?/)}
         @app_name = $2
       end
-      if args.detect {|arg| arg.match(/^(--environment|-?e)='?([^\s']+)'?/)}
+      if args.detect {|arg| arg.match(/^(--environment|-?e)=?'?([^\s']+)'?/)}
         @env_name = $2
       end
     end
