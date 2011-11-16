@@ -12,6 +12,7 @@ module Yoomee::Command
     
     def fetch
       parse_args!
+
       cli = EY::CLI.new
       display("=> Fetching app details from EngineYard")
       app,environment = cli.send(:fetch_app_and_environment, @app_name, @env_name)
@@ -26,7 +27,15 @@ module Yoomee::Command
       db_user = config["username"]
       
       display("=> Downloading database dump")
-      system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql ./db/#{db_name}.sql")
+      system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql.tgz ./db/#{db_name}.sql.tgz")
+      
+      if File.exists?("./db/#{db_name}.sql.tgz")
+        display("=> Uncompressing database dump")
+        system("cd ./db && tar -xzvf #{db_name}.sql.tgz && mv #{app.name}.sql #{db_name}.sql")
+      else
+        display("=> Compressed database dump not found, downloading uncompressed version")
+        system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql ./db/#{db_name}.sql")
+      end
       
       display("=> Dropping local database")
       system("rake db:drop")
@@ -41,11 +50,11 @@ module Yoomee::Command
     end
     
     def parse_args!
-      if args.detect {|arg| arg.match(/^a=(.+)/)}
-        @app_name = $1
+      if args.detect {|arg| arg.match(/^(--app|-?a)='?([^\s']+)'?/)}
+        @app_name = $2
       end
-      if args.detect {|arg| arg.match(/^e=(.+)/)}
-        @env_name = $1
+      if args.detect {|arg| arg.match(/^(--environment|-?e)='?([^\s']+)'?/)}
+        @env_name = $2
       end
     end
     
