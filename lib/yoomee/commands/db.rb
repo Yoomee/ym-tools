@@ -12,7 +12,7 @@ module Yoomee::Command
     
     def fetch
       parse_args!
-
+      
       cli = EY::CLI.new
       display("=> Fetching app details from EngineYard")
       app,environment = cli.send(:fetch_app_and_environment, @app_name, @env_name)
