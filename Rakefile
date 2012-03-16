@@ -1,82 +1,37 @@
-# Yoomee gem.
-
-require 'rubygems'
-require 'rake/gempackagetask'
-
-require 'find'
-
-spec = Gem::Specification.new do |spec|
-  files = []
-  %w{bin generators lib}.each do |dir|
-    Find.find(dir) { |path| files << path if !(File.stat(path).directory? || path =~ /^.*DS_STORE$/)}
-  end
-  spec.platform = Gem::Platform::RUBY
-  spec.name = 'yoomee'
-  spec.homepage = 'http://yoomee.com'
-  spec.version = '0.0.1'
-  spec.author = 'Matt Atkins'
-  spec.email = 'matt@yoomee.com'
-  spec.summary = 'The Yoomee gem.'
-  spec.description = 'Does lots of yoomee-specific stuff'
-  spec.files = files
-  spec.require_path = '.'
-  spec.test_files = Dir.glob('tests/*.rb')
-  spec.has_rdoc = false
-  spec.executables = ["ym", "yoomee"]
+#!/usr/bin/env rake
+begin
+  require 'bundler/setup'
+rescue LoadError
+  puts 'You must `gem install bundler` and `bundle install` to run rake tasks'
+end
+begin
+  require 'rdoc/task'
+rescue LoadError
+  require 'rdoc/rdoc'
+  require 'rake/rdoctask'
+  RDoc::Task = Rake::RDocTask
 end
 
-Rake::GemPackageTask.new(spec) do |pkg|
-  pkg.need_tar = true
+RDoc::Task.new(:rdoc) do |rdoc|
+  rdoc.rdoc_dir = 'rdoc'
+  rdoc.title    = 'Yoomee'
+  rdoc.options << '--line-numbers'
+  rdoc.rdoc_files.include('README.rdoc')
+  rdoc.rdoc_files.include('lib/**/*.rb')
 end
 
-task :default => "pkg/#{spec.name}-#{spec.version}.gem" do
-  puts 'Generated latest version.'
+
+
+Bundler::GemHelper.install_tasks
+
+require 'rake/testtask'
+
+Rake::TestTask.new(:test) do |t|
+  t.libs << 'lib'
+  t.libs << 'test'
+  t.pattern = 'test/**/*_test.rb'
+  t.verbose = false
 end
 
-desc 'Remove directories "pkg" and "doc"'
-task :clean do
-  puts 'Remove directories "pkg" and "doc".'
-  `rm -rf pkg doc`
-end
 
-desc 'Create rdoc documentation from the code'
-task :doc do
-  `rm -rf doc`
-
-  puts 'Create rdoc documentation from the code'
-  puts `(rdoc --exclude pkg --exclude tmp \
-          --all  --title "Yoomee" README.rdoc lib) 1>&2`
-end
-
-desc 'Update the yoomee.gemspec file with new snapshot of files to bundle'
-task :gemspecs do
-  puts 'Update the yoomee.gemspec file with new snapshot of files to bundle.'
-
-  # !!Warning: We can't use spec.to_ruby as this generates executable code
-  # which would break Github gem generation...
-
-  template = <<EOF
-# Yoomee gem
-
-Gem::Specification.new do |spec|
-  spec.platform = #{spec.platform.inspect}
-  spec.name = #{spec.name.inspect}
-  spec.homepage = #{spec.homepage.inspect}
-  spec.version = "#{spec.version}"
-  spec.author = #{spec.author.inspect}
-  spec.email = #{spec.email.inspect}
-  spec.summary = #{spec.summary.inspect}
-  spec.description = #{spec.description.inspect}
-  spec.files = #{spec.files.inspect}
-  spec.require_path = #{spec.require_path.inspect}
-  spec.has_rdoc = #{spec.has_rdoc}
-  spec.executables = #{spec.executables.inspect}
-  spec.extra_rdoc_files = #{spec.extra_rdoc_files.inspect}
-  spec.rdoc_options = #{spec.rdoc_options.inspect}
-  spec.add_dependency("git")
-  spec.rubyforge_project = "nowarning"
-end
-EOF
-
-  File.open('yoomee.gemspec', 'w').write(template)
-end
+task :default => :test

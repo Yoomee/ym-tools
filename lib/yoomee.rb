@@ -1,3 +1,2 @@
-module Yoomee; end
-require 'rubygems'
-require 'git'
+module Yoomee
+end
