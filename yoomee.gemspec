@@ -10,9 +10,9 @@ Gem::Specification.new do |s|
   s.authors     = ["Matt Atkins", "Ian Mooney", "Si Wilkins"]
   s.email       = "developers@yoomee.com"
   s.homepage    = "http://www.yoomee.com"
-  s.summary     = "TODO: Summary of Yoomee."
+  s.summary     = "Summary of Yoomee."
   s.executables = ["ym", "yoomee"]
-  s.description = "TODO: Description of Yoomee."
+  s.description = "Description of Yoomee."
 
   s.files = Dir["{app,bin,config,db,generators,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
