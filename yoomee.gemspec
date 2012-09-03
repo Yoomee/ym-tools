@@ -7,7 +7,7 @@ require "yoomee/version"
 Gem::Specification.new do |s|
   s.name        = "yoomee"
   s.version     = Yoomee::VERSION
-  s.authors     = ["Matt Atkins", "Ian Mooney", "Si Wilkins"]
+  s.authors     = ["Matt Atkins", "Ian Mooney", "Edward Andrews"]
   s.email       = "developers@yoomee.com"
   s.homepage    = "http://www.yoomee.com"
   s.summary     = "Summary of Yoomee."
@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
   s.add_dependency "net-ssh"
   s.add_dependency "engineyard", "~> 1.4.22"
   s.add_development_dependency "sqlite3"
+  s.add_development_dependency "geminabox"
   
 end
