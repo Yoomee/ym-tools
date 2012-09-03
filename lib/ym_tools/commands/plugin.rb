@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Plugin < Base
     
     def install

@@ -1,5 +1,5 @@
 require 'net/ssh'
-module Yoomee::Command
+module YmTools::Command
   class Project < Base
     def create
       project_name = args[0]

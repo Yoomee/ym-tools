@@ -1,5 +1,5 @@
 require 'engineyard/cli'
-module Yoomee::Command
+module YmTools::Command
   class Db < Base
     def prepare
       display("Creating database......",false)

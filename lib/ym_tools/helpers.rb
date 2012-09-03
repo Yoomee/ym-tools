@@ -1,4 +1,4 @@
-module Yoomee
+module YmTools
   module Helpers
     def home_directory
       running_on_windows? ? ENV['USERPROFILE'] : ENV['HOME']

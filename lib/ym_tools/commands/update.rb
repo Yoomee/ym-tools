@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Update < Base
     def index
       puts "Updating project and all local gems..."

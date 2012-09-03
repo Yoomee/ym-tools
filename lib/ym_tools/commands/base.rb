@@ -1,9 +1,9 @@
 require 'fileutils'
 require 'net/ssh'
 
-module Yoomee::Command
+module YmTools::Command
   class Base
-    include Yoomee::Helpers
+    include YmTools::Helpers
 
     attr_accessor :args
     def initialize(args, user)

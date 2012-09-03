@@ -1,14 +1,14 @@
-require 'yoomee/helpers'
-require 'yoomee/commands/base'
+require 'ym_tools/helpers'
+require 'ym_tools/commands/base'
 Dir["#{File.dirname(__FILE__)}/commands/*"].each { |c| require c }
 
 
-module Yoomee
+module YmTools
   module Command
     class InvalidCommand < RuntimeError; end
     class CommandFailed  < RuntimeError; end
 
-    extend Yoomee::Helpers
+    extend YmTools::Helpers
 
     class << self
 
@@ -58,21 +58,21 @@ module Yoomee
         case parts.size
           when 1
             begin
-              return eval("Yoomee::Command::#{command.capitalize}"), :index
+              return eval("YmTools::Command::#{command.capitalize}"), :index
             rescue NameError
               raise InvalidCommand
             # rescue NameError, NoMethodError
-            #   return Yoomee::Command::App, command
+            #   return YmTools::Command::App, command
             end
           when 2
             begin
-              return Yoomee::Command.const_get(parts[0].capitalize), parts[1]
+              return YmTools::Command.const_get(parts[0].capitalize), parts[1]
             rescue NameError
               raise InvalidCommand
             end
           when 3
             begin
-              return Yoomee::Command.const_get(parts[0].capitalize), parts[1], parts[2]
+              return YmTools::Command.const_get(parts[0].capitalize), parts[1], parts[2]
             rescue NameError
               raise InvalidCommand
             end

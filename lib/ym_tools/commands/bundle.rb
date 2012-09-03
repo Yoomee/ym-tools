@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Bundle < Base
     def edit
       shell("mate #{escaped_bundle_path}/")

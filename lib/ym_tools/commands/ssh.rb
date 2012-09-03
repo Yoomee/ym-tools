@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Ssh < Base
     def index
       system "ssh si@git.yoomee.com -p 316"

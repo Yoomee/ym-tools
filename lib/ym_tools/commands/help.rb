@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Help < Base
     class HelpGroup < Array
       attr_reader :title
@@ -49,7 +49,7 @@ module Yoomee::Command
       end
       group 'Gem & Bundle Commands' do |group|
         group.command 'gem:update','install latest version of gem, requires sudo'
-        group.command 'gem:update:local','install gem from ~/Rails/Gems/yoomee, requires sudo'
+        group.command 'gem:update:local','install gem from ~/Rails/Gems/ym_tools, requires sudo'
         group.space
         group.command 'bundle:install','install the Yoomee TextMate bundle'
         group.command 'bundle:update','update the Yoomee TextMate bundle'
@@ -86,4 +86,4 @@ module Yoomee::Command
   end
 end
 
-Yoomee::Command::Help.create_default_groups!
+YmTools::Command::Help.create_default_groups!

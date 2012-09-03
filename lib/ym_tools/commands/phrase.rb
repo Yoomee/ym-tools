@@ -1,4 +1,4 @@
-module Yoomee::Command
+module YmTools::Command
   class Phrase < Base
     def index
       phrases = File.readlines(File.dirname(__FILE__) + '/../../support/phrases.txt')

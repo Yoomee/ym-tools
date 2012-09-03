@@ -1,6 +1,6 @@
 require 'rubygems'
 require 'rest_client'
-module Yoomee::Command
+module YmTools::Command
   class Noun < Base
     def index
       noun = args[0].to_i
