@@ -5,10 +5,15 @@ module YmTools::Command
   class Base
     include YmTools::Helpers
 
-    attr_accessor :args
+    attr_accessor :args, :dry_run
     def initialize(args, user)
+      @dry_run = !args.delete('--dry-run').nil?
       @args = args
       @user = user
+    end
+    
+    def dry_run?
+      dry_run
     end
 
     def in_project_root?
@@ -33,7 +38,11 @@ module YmTools::Command
     end
 
     def shell(cmd)
-      FileUtils.cd(Dir.pwd) {|d| return `#{cmd}`}
+      if dry_run?
+        puts cmd
+      else
+        FileUtils.cd(Dir.pwd) {|d| return `#{cmd}`}
+      end
     end
     
     def create_git_on_dev1(repo_path)
