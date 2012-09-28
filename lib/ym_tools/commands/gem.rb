@@ -29,5 +29,80 @@ module YmTools::Command
         end
       end
     end
+    
+    def bump
+      gem_name = Dir["*.gemspec"][0].split(/\./).first
+      gem_name_camelcase = camelize(gem_name)
+      
+      current_version = constantize("#{gem_name_camelcase}::VERSION")
+      major,minor,patch = current_version.split(/\./).collect(&:to_i)
+      if patch
+        patch += 1
+      elsif minor
+        minor += 1
+      else
+        major += 1
+      end
+      new_version = [major, minor, patch].compact.join('.')
+      
+      display("===========================================")      
+      display(" Current version................... #{current_version}")
+      display(" New version...............[#{new_version}] ",false)
+      ask_for_version = ask
+      new_version = ask_for_version unless ask_for_version.strip == ""
+      display("===========================================")      
+      
+      # Write new version to lib/*/version.rb
+      display(" Writing to version.rb................",false)
+      version_file_path = File.join("lib", gem_name, "version.rb")
+      absolute_version_file_path = File.join(Dir.pwd,version_file_path)
+      version_file = File.read(absolute_version_file_path).gsub!(current_version,new_version)
+      File.open(absolute_version_file_path, 'w'){|f| f.puts version_file} unless dry_run?
+      display('DONE')      
+      
+      display(" Commiting and pushing version.rb.....",false)
+      shell("git add #{version_file_path}")
+      shell("git commit -m 'Bump version to #{new_version}' -- #{version_file_path}")
+      shell("git push")
+      display('DONE')      
+
+      display(" Building gem.........................",false)
+      shell("bundle exec rake build")
+      display('DONE')
+      
+      display(" Pushing to gem server................",false)
+      shell("gem inabox")
+      display('DONE')
+      
+      display(" Adding git tag v#{new_version}...............",false)
+      shell("git tag v#{new_version}")
+      display('DONE')
+      
+      display(" Pushing tags.........................",false)
+      shell("git push --tags")
+      display('DONE')
+      
+      display("===========================================")      
+    end
+    
+    private
+    def camelize(before_camelize)
+      string = before_camelize.dup
+      string.gsub!(/_/, ' ')
+      string.gsub!(/^[a-z]|\s+[a-z]/) { |a| a.upcase }
+      string.gsub!(/\s/, '')
+    end
+    
+    def constantize(camel_cased_word)
+      names = camel_cased_word.split('::')
+      names.shift if names.empty? || names.first.empty?
+
+      constant = Object
+      names.each do |name|
+        constant = constant.const_defined?(name) ? constant.const_get(name) : constant.const_missing(name)
+      end
+      constant
+    end
+    
   end
 end
