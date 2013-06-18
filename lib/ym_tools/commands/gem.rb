@@ -85,6 +85,23 @@ module YmTools::Command
       display("===========================================")      
     end
     
+    def edit
+      if gem_name = args[0]
+        path = File.expand_path("~/Rails/Gems/#{gem_name}")
+        if File.directory?(path)
+          display(" Pulling #{gem_name}.git..............",false)
+          shell("cd #{path} && git pull")
+        else
+          display(" Cloning #{gem_name}.git..............",false)
+          shell("git clone git@gitlab.yoomee.com:#{gem_name}.git #{path}")
+        end
+        display('DONE')
+        shell("#{ENV['EDITOR']} #{path}")
+      else
+        puts "e.g. ym gem:edit ym_core"
+      end
+    end
+    
     private
     def camelize(before_camelize)
       string = before_camelize.dup
