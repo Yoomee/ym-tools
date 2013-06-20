@@ -71,7 +71,7 @@ module YmTools::Command
       display('DONE')
       
       display(" Pushing to gem server................",false)
-      shell("gem inabox")
+      shell("gem inabox pkg/#{gem_name}-#{new_version}.gem")
       display('DONE')
       
       display(" Adding git tag v#{new_version}...............",false)
