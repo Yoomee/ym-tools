@@ -17,10 +17,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,bin,config,db,generators,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
-  s.add_dependency "rails"
-  s.add_dependency "git", "~> 1.2.5"
-  s.add_dependency "net-ssh", "~> 2.2.1"
-  s.add_dependency "engineyard", "~> 1.4.22"
+  s.add_dependency "git"
+  s.add_dependency "net-ssh"
+  s.add_dependency "engineyard"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "geminabox"
   
