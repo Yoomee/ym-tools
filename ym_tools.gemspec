@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,bin,config,db,generators,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]
 
+  s.add_dependency "rails"
   s.add_dependency "git"
   s.add_dependency "net-ssh"
   s.add_dependency "engineyard"
