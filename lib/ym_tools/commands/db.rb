@@ -50,11 +50,19 @@ module YmTools::Command
     end
     
     def parse_args!
-      if args.detect {|arg| arg.match(/^(--app|-?a)(=|\s)'?([^\s']+)'?/)}
-        @app_name = $2
-      end
-      if args.detect {|arg| arg.match(/^(--environment|-?e)(=|\s)'?([^\s']+)'?/)}
-        @env_name = $2
+      app_next = env_next = false
+      args.each do |arg|
+        if app_next
+          @app_name = arg.strip
+          app_next = false
+        elsif env_next
+          @env_name = arg.strip
+          app_next = false
+        elsif arg.strip =~ /(--app|-a)/
+          app_next = true
+        elsif arg.strip =~ /(--environment|-e)/
+          env_next = true
+        end
       end
     end
     
