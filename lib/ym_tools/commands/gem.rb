@@ -64,7 +64,11 @@ module YmTools::Command
       shell("git add #{version_file_path}")
       shell("git commit -m 'Bump version to #{new_version}' -- #{version_file_path}")
       shell("git push")
-      display('DONE')      
+      display('DONE')
+      
+      display(" Removing old packages in ............",false)
+      shell("rm -rf ./pkg")
+      display('DONE')   
 
       display(" Building gem.........................",false)
       shell("bundle exec rake build")
