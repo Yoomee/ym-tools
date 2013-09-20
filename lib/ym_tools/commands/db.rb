@@ -20,7 +20,7 @@ module YmTools::Command
       display("=> Running rake db:dump on the server")
       hosts = cli.ssh_hosts({}, environment)
       raise NoCommandError.new if hosts.size != 1
-      system Escape.shell_command(['ssh', "#{environment.username}@#{hosts.first}", "cd /data/#{app.name}/current && bundle exec rake db:dump --trace RAILS_ENV=production"].compact)
+      system Escape.shell_command(['ssh', "#{environment.username}@#{hosts.first}", "cd /data/#{app.name}/current && /usr/local/bin/bundle exec rake db:dump --trace RAILS_ENV=production"].compact)
       
       config = YAML.load(File.new('./config/database.yml'))["development"]
       db_name = config["database"]
