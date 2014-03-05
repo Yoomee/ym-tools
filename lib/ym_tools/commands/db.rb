@@ -37,6 +37,20 @@ module YmTools::Command
         system("scp #{environment.username}@#{hosts.first}:/data/#{app.name}/current/db/#{app.name}.sql ./db/#{db_name}.sql")
       end
       
+      load_database_from_dump(db_name, db_user)
+
+      display("COMPLETE")
+    end
+
+    def reload
+      config = YAML.load(File.new('./config/database.yml'))["development"]
+      db_name = config["database"]
+      db_user = config["username"]
+      load_database_from_dump(db_name, db_user)
+      display("COMPLETE")
+    end
+
+    def load_database_from_dump(db_name, db_user)
       display("=> Dropping local database")
       system("rake db:drop")
       
@@ -45,8 +59,6 @@ module YmTools::Command
       
       display("=> Importing database")
       system("mysql -u#{db_user} #{db_name} < ./db/#{db_name}.sql")
-      
-      display("COMPLETE")
     end
     
     def parse_args!
