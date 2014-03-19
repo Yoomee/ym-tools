@@ -1,0 +1,42 @@
+#!/usr/bin/env ruby
+user = ARGV[0].to_s.strip.downcase
+
+mac_addresses = {
+  'andy' => 'b8:e8:56:41:ad:30',
+  'chystal' => '0:1e:c2:ba:75:b7',
+  'david' => '84:38:35:3d:d5:5c',
+  'edward' => nil,
+  'greg' => 'ec:35:86:3f:d:7e',
+  'jon' => 'c8:e0:eb:5d:6:8d',
+  'matt' => '10:dd:b1:bd:76:c9',
+  'rich' => nil,
+  'tim' => '54:26:96:d8:50:2f'
+}
+
+
+if user == 'refresh'
+  print "Refreshing...."
+  threads = []
+  (0..15).each do |x|
+    threads << Thread.new do
+      (0..15).each do |z|
+        n = (x * 16) + z
+        system "ping -c 1 -t 1 10.0.1.#{n} &> /dev/null"
+      end
+      print '.'
+    end
+  end
+  threads.each{|t| t.join}
+  puts "DONE"
+else
+  if mac_address = mac_addresses[user]
+    matches = %x{arp -a | grep #{mac_address}}.match(/\((\d+\.\d+\.\d+\.\d+)\)/)
+    if matches && (ip_address = matches[1])
+      system("/usr/bin/open -a \"/Applications/Google Chrome.app\" 'http://#{ip_address}:3000'")
+    else
+      puts "Couldn't find IP address for #{user}"
+    end
+  else
+    puts "Couldn't find MAC address for #{user}"
+  end
+end
