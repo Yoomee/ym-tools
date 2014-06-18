@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"
   s.add_dependency "git"
   s.add_dependency "net-ssh"
-  s.add_dependency "engineyard", "~> 1.4"
+  s.add_dependency "engineyard", "~> 2.3.3"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "geminabox"
   
